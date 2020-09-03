@@ -1,0 +1,36 @@
+{
+    "candidates":[
+       {
+          "question":"Leadership",
+          "name":"Luke Skywalker",
+          "answer":1
+       },
+       {
+          "question":"Frontend Skills",
+          "name":"Luke Skywalker",
+          "answer":1
+       },
+       {
+          "question":"Motivated with company visison",
+          "name":"Luke Skywalker",
+          "answer":1
+       },
+       {
+          "question":"Frontend Skills",
+          "name":"Darth Vader",
+          "answer":1
+       },
+       {
+          "question":"Leadership",
+          "name":"Darth Vader",
+          "answer":1
+       },
+       {
+          "question":"Motivated with company visison",
+          "name":"Darth Vader",
+          "answer":4
+       }
+    ],
+    "loading":false,
+    "error":false
+ }
