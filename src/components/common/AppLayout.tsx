@@ -1,7 +1,6 @@
 import React, { ReactChildren } from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { AppHeader } from '../common/AppHeader'
-import {PopUp} from '../common/PopUp'
 export default function AppLayout(props: { children: React.ReactNode }) {
     return (
 
@@ -9,7 +8,6 @@ export default function AppLayout(props: { children: React.ReactNode }) {
 
         <View style={styles.container}>
             <AppHeader />
-            <PopUp/>
             {/* <ScrollView> */}
                 {props.children}
             {/* </ScrollView> */}

@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Button, Icon, List, ListItem } from '@ui-kitten/components';
 import { StyleSheet } from 'react-native';
 import { Text } from '@ui-kitten/components';
+import { useNavigation } from '@react-navigation/native';
 
 import Pusher from 'pusher-js/react-native';
 
@@ -10,112 +11,14 @@ const _ = require('lodash');
 
 
 
-const data =
-{
-  "candidates": [
-    {
-      "question": "Frontend Skills",
-      "name": "Luke Skywalker",
-      "answer": 5
-    },
-    {
-      "question": "Leadership",
-      "name": "Luke Skywalker",
-      "answer": 5
-    },
-    {
-      "question": "Motivated with company visison",
-      "name": "Luke Skywalker",
-      "answer": 5
-    },
-    {
-      "question": "Frontend Skills",
-      "name": "Obi-Wan Kenobi",
-      "answer": 3
-    },
-    {
-      "question": "Leadership",
-      "name": "Obi-Wan Kenobi",
-      "answer": 1
-    },
-    {
-      "question": "Motivated with company visison",
-      "name": "Obi-Wan Kenobi",
-      "answer": 4
-    },
-    {
-      "question": "Frontend Skills",
-      "name": "Darth Vader",
-      "answer": 1
-    },
-    {
-      "question": "Leadership",
-      "name": "Darth Vader",
-      "answer": 2
-    },
-    {
-      "question": "Motivated with company visison",
-      "name": "Darth Vader",
-      "answer": 2
-    },
-    {
-      "question": "Frontend Skills",
-      "name": "Han Solo",
-      "answer": 2
-    },
-    {
-      "question": "Leadership",
-      "name": "Han Solo",
-      "answer": 2
-    },
-    {
-      "question": "Motivated with company visison",
-      "name": "Han Solo",
-      "answer": 2
-    },
-    {
-      "question": "Frontend Skills",
-      "name": "Princess Leia Organa",
-      "answer": 2
-    },
-    {
-      "question": "Leadership",
-      "name": "Princess Leia Organa",
-      "answer": 3
-    },
-    {
-      "question": "Motivated with company visison",
-      "name": "Princess Leia Organa",
-      "answer": 3
-    },
-    {
-      "question": "Frontend Skills",
-      "name": "R2-D2",
-      "answer": 3
-    },
-    {
-      "question": "Leadership",
-      "name": "R2-D2",
-      "answer": 3
-    },
-    {
-      "question": "Motivated with company visison",
-      "name": "R2-D2",
-      "answer": 1
-    }
-  ],
-  "loading": false,
-  "error": false
 
 
-};
 
-
-interface result {
+export interface result {
   question: string,
   answer: string
 }
-interface candidate {
+export interface candidate {
   name: string,
   results: result[]
   score: number
@@ -128,6 +31,7 @@ interface candidate {
 
 export const CandidateList = () => {
 
+  const navigation = useNavigation();
 
   //pushher
   const pusher = new Pusher('3b49318cc8a294ab90cd', { cluster: 'us2' });
@@ -136,7 +40,7 @@ export const CandidateList = () => {
   channel.bind('my-event', function (data: string) {
     const payload = data
     setMessage(payload)
-});
+  });
 
 
   //mocking
@@ -151,7 +55,7 @@ export const CandidateList = () => {
       score: Math.floor(score)
     });
   };
-  candidates = _.orderBy(candidates, 'score',  ['desc', 'asc']);
+  candidates = _.orderBy(candidates, 'score', ['desc', 'asc']);
 
 
 
@@ -173,16 +77,27 @@ export const CandidateList = () => {
       title={`${item.item.name}`}
       accessoryLeft={renderItemIcon}
       accessoryRight={() => renderItemAccessory(item.item.score)}
+      onPress={() => navigation.navigate('CandidateProfile', {
+        name: item.item.name,
+        candidates: candidates
+      })}
+
     />
   );
 
   return (
     <>
+
+      <Text category='label' style={{ padding: 9 }}>Candidatos</Text>
+
+
       <List
         style={styles.container}
         data={candidates}
         renderItem={renderItem}
       />
+
+
 
 
     </>
